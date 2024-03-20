@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login and Registration System</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: skyblue;
+        margin: 0;
+        padding: 0;
+    }
+    #container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    form {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: white;
+    }
+    input[type="text"],
+    input[type="password"],
+    input[type="submit"] {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+    .error {
+        color: red;
+    }
+</style>
+</head>
+<body>
+<div id="container">
+    <form id="registerForm">
+        <h2>Registration</h2>
+        <p id="errorText" class="error" style="display: none;"></p>
+        <input type="text" id="registerUsername" placeholder="Username" required><br>
+        <input type="password" id="registerPassword" placeholder="Password" required><br>
+        <input type="submit" value="Register">
+    </form>
+
+    <form id="loginForm" style="display: none;">
+        <h2>Login</h2>
+        <input type="text" id="loginUsername" placeholder="Username" required><br>
+        <input type="password" id="loginPassword" placeholder="Password" required><br>
+        <input type="submit" value="Login">
+    </form>
+</div>
+
+<script>
+    document.getElementById('registerForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('registerUsername').value;
+        const password = document.getElementById('registerPassword').value;
+
+        if (password.length < 8) {
+            displayError("Password must be at least 8 characters long.");
+            return;
+        }
+        if (/^\d+$/.test(password)) {
+            displayError("Password must contain at least one non-numeric character.");
+            return;
+        }
+        if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+            displayError("Password must contain both uppercase and lowercase characters.");
+            return;
+        }
+
+        console.log("Registration attempt with username:", username, "and password:", password);
+        document.getElementById('registerForm').style.display = "none";
+        document.getElementById('loginForm').style.display = "block";
+    });
+
+    function displayError(errorMessage) {
+        document.getElementById('errorText').innerText = errorMessage;
+        document.getElementById('errorText').style.display = "block";
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+        console.log("Login attempt with username:", username, "and password:", password);
+        alert("Welcome!! Thank you for logging in!!");
+    });
+
+</script>
+</body>
+</html>
